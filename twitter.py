@@ -63,14 +63,18 @@ auth.set_access_token('1302861793732091905-3etPrssiLXkrGtCeqw6SxOzDroilT9', '0lE
 api = tweepy.API(auth, wait_on_rate_limit=False)
 rng = np.random.default_rng()
 
-
-range=20
-c = coord()
-print(c)
-place_id = api.reverse_geocode(c[0],c[1],range)[0].id
-print(place_id)
-tweets = api.search(q="place:%s" % place_id)
-print(tweets)
-api.update_status("fuck you, @"+tweets[0].user.name)
+while True:
+    try:
+        range=20
+        c = coord()
+        print(c)
+        place_id = api.reverse_geocode(c[0],c[1],range)[0].id
+        print(place_id)
+        tweets = api.search(q="place:%s" % place_id)
+        print(tweets)
+        api.update_status("fuck you, @"+tweets[0].user.screen_name)
+        break
+    except:
+        range += 20
 
 
